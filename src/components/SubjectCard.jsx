@@ -1,11 +1,7 @@
 import Button from "./Button.jsx";
 import { useState } from "react";
 
-export default function SubjectCard({ subject}) {
-    const [isFav, setIsFav] = useState(false);
-    function handleFavoriteClick() {
-        setIsFav(!isFav)
-    }
+export default function SubjectCard({subject, isFav, onFavoriteClick}) {
 
     return (
         <li className="subjects-preview__item" data-subject-id={subject.id}>
@@ -15,7 +11,7 @@ export default function SubjectCard({ subject}) {
                 <Button 
                     text={"favorite"}
                     className={`favorite__button button ${isFav ? 'active' : ''}`}
-                    onClick={handleFavoriteClick}
+                    onClick={onFavoriteClick}
                     icon={isFav ? '★' : '☆'}
                 />
                 <a href={`/subject/${subject.id}`} className="card__link">Zu den Lektionen</a>
