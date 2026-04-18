@@ -25,8 +25,8 @@ function App() {
     useEffect(() => {
       async function fetchSubjects() {
         try {
-          const subjectURL = "http://127.0.0.1:3658/m1/1236529-1233135-default/subjects";
-          const response = await fetch(subjectURL);
+          const subjectsURL = "http://127.0.0.1:3658/m1/1236529-1233135-default/subjects";
+          const response = await fetch(subjectsURL);
           if (response.ok) {
             const result = await response.json();
             setSubjects(result.subjects);
@@ -45,7 +45,7 @@ function App() {
       <Header favCount={favorites.length} subjects={subjects} isLoading={isLoading}/>
       <Routes>
         <Route path="/" element={<HomePage subjects={subjects} isLoading={isLoading} favorites={favorites} toggleFavorites={toggleFavorites}/>}/>
-        <Route path="/subject/:subjectId" element={<SubjectPage/>}/>
+        <Route path="/subject/:subjectId" element={<SubjectPage subjects={subjects}/>}/>
         <Route path="/subject/:subjectId/lesson/:lessonId" element={<LessonPage/>}/>
       </Routes>
       <Footer/>
