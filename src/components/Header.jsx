@@ -1,4 +1,4 @@
-export default function Header({favCount, subjects}) {
+export default function Header({favCount, subjects, isLoading}) {
     return (
         <header className="header">
             <div className="header__container"> 
@@ -14,15 +14,15 @@ export default function Header({favCount, subjects}) {
 
 
                 <nav className="header__nav">
-                    <ul className="header__menu">
-                        {subjects.map(subject => {
-                            return(
+                    {!isLoading && (
+                        <ul className="header__menu">
+                            {subjects.map(subject => (
                                 <li className="header__menu-item" key={subject.id}>
                                     <a href={`/subject/${subject.id}`} className="header__menu-link">{subject.title}</a>
                                 </li>
-                            )
-                        })}
-                    </ul>
+                            ))}
+                        </ul>
+                    )}
                 </nav>
                 
             </div>
