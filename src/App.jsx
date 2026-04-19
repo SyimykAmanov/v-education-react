@@ -1,16 +1,15 @@
 import Footer from "./components/Footer.jsx";
 import SubjectCard from "./components/SubjectCard.jsx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "./components/Header.jsx";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
 import SubjectPage from "./pages/SubjectPage.jsx";
 import LessonPage from "./pages/LessonPage.jsx";
+import { useFetch } from "./hooks/useFetch.js";
 
 function App() {
     const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem("v-education_favorites")) || []);
-    const [subjects, setSubjects] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
     
     function toggleFavorites(id) {
         const newFavorites = favorites.includes(id)
@@ -21,24 +20,17 @@ function App() {
         localStorage.setItem('v-education_favorites', JSON.stringify(newFavorites));
     }
 
-
-    useEffect(() => {
-      async function fetchSubjects() {
-        try {
-          const subjectsURL = "http://127.0.0.1:3658/m1/1236529-1233135-default/subjects";
-          const response = await fetch(subjectsURL);
-          if (response.ok) {
-            const result = await response.json();
-            setSubjects(result.subjects);
-            setIsLoading(false);
-          }
-        } catch (error) {
-          console.error(error);
-        }
-        };
+    const { data, isLoading } = useFetch("http://127.0.0.1:3658/m1/1236529-1233135-default/subjects");
     
-        fetchSubjects();
-    }, [])
+    if (isLoading) {
+      return <p>Wird geladen ...</p>
+    }
+
+    const subjects = data.subjects;
+
+
+
+    
 
   return (
     <BrowserRouter>

@@ -1,32 +1,14 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
+import { useFetch } from "../hooks/useFetch";
 
 export default function SubjectPage({subjects}) {
     const {subjectId} = useParams();
-    const [lessons, setLessons] = useState([]);
-    const [isLoading, setLoading] = useState(true);
     const subject = subjects.find(subject => (subject.id === subjectId));
+    const {data, isLoading} = useFetch("http://127.0.0.1:3658/m1/1236529-1233135-default/lessons");
 
-    useEffect(() => {
-        async function fetchLessons() {
-            try {
-              const lessonsURL = "http://127.0.0.1:3658/m1/1236529-1233135-default/lessons";
-              const response = await fetch(lessonsURL);
-              if (response.ok) {
-                const result = await response.json();
-                const subjectLessons = result.lessons.filter(lesson => lesson.subjectId === subjectId);
-                setLessons(subjectLessons);
-                setLoading(false);
-              }
-            } catch (error) {
-              console.error(error);
-            }
-        };
+    if (isLoading) return <p>Wird geladen...</p>
 
-        fetchLessons()
-    }, [])
-
-    if (!subject) return <p>Wird geladen...</p>
+    const lessons = data.lessons.filter(lesson => lesson.subjectId === subjectId);
     
     return (
         <div className="container">
@@ -37,15 +19,11 @@ export default function SubjectPage({subjects}) {
 
             <section className="lessons-preview">
             <h2 className="lessons-preview__title">Lektionsliste</h2>
-            {
-                isLoading ? <p>Wird geladen ...</p> : (
-                    <ul className="lessons-preview__items">
-                        {lessons.map(lesson => 
-                            <li key={lesson.id}>{lesson.title}</li>
-                        )}
-                    </ul>
-                )
-            }
+                <ul className="lessons-preview__items">
+                    {lessons.map(lesson => 
+                        <li key={lesson.id}>{lesson.title}</li>
+                    )}
+                </ul>
             </section>
         </div>
     )

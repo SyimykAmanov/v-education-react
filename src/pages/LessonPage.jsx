@@ -1,31 +1,16 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useFetch } from "../hooks/useFetch";
 
 export default function LessonPage() {
     const {subjectId, lessonId} = useParams();
-    const [lessons, setLessons] = useState([]);
-    const [isLoading, setIsloading] = useState(true);
-    const lesson = lessons.find(lesson => lesson.id == lessonId && lesson.subjectId == subjectId);
-
-    useEffect(() => {
-        async function fetchLessons() {
-            const lessonsURL = "http://127.0.0.1:3658/m1/1236529-1233135-default/lessons";
-            const response = await fetch(lessonsURL);
-            const result = await response.json();
-            setLessons(result.lessons);
-        };
-
-        async function fetchData() {
-            await fetchLessons();
-            setIsloading(false);
-        }
-        
-        fetchData();
-    }, []);
+    const {data, isLoading} = useFetch("http://127.0.0.1:3658/m1/1236529-1233135-default/lessons");
 
     if (isLoading) {
         return <p>Wird geladen...</p>
     }
+
+    const lessons = data.lessons;
+    const lesson = lessons.find(lesson => lesson.id == lessonId && lesson.subjectId == subjectId);
 
     if (!lesson) {
         return <p>Урок не найден</p>;
