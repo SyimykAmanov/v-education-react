@@ -5,7 +5,7 @@ export default function Header({favCount, subjects, isLoading}) {
 
                 <div className="header__info">
                     <a href="/" className="logo header__logo">
-                        <img className="logo__img" src="/assets/img/logo.png" alt="logo"/>
+                        <img className="logo__img" src="#" alt="logo"/>
                     </a>
                     <div className="header__favorites">
                         <span className="nav__fav-count">Lieblingsfächer: {favCount}</span>
