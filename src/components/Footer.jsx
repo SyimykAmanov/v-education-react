@@ -5,7 +5,7 @@ export default function Footer() {
 
                 <div className="footer__brand">
                     <a href="/" className="logo footer__logo">
-                        <img className="logo__img dark-theme" src="#" alt="logo"/>
+                        <img className="logo__img dark-theme" src="/assets/img/logo.png" alt="logo"/>
                     </a>
                     <p className="footer__copy">&copy; 2026 v-education</p>
                 </div>

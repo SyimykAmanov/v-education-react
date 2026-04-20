@@ -1,0 +1,33 @@
+.lessons-preview {
+    padding-bottom: 80px;
+}
+
+.lessons-preview__title {
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    position: relative;
+    padding-left: 15px;
+}
+
+.lessons-preview__title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 80%;
+    background-color: var(--color-success);
+    border-radius: 2px;
+}
+
+.lessons-preview__items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    list-style: none;
+}
+
+.lessons-preview__item {
+    margin-bottom: 50px;
+}

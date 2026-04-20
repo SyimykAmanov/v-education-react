@@ -1,0 +1,69 @@
+.header__menu-link--active {
+  color: var(--color-brand);
+}
+
+.lesson {
+    background: var(--color-white);
+    padding: 50px 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.lesson__header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.lesson__title {
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    color: var(--color-text);
+}
+
+/* Контейнер для адаптивного видео */
+.lesson__video {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Автоматически держит пропорции видео */
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.lesson__iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.lesson__subtitle {
+    margin-bottom: 15px;
+    color: var(--color-brand);
+}
+
+.lesson__homework {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--color-bg);
+    border-left: 4px solid var(--color-success);
+    border-radius: 4px;
+}
+
+.lesson__homework-title {
+    margin-bottom: 10px;
+    color: var(--color-text);
+}
+
+.lesson__homework-list {
+    padding-left: 20px;
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+  .page-content {
+    padding: 15px;
+  }
+
+  .lesson__title {
+    font-size: 1.4rem;
+  }
+}

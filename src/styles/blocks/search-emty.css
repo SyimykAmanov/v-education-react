@@ -1,0 +1,14 @@
+.search-emty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-emty__title {
+    margin-bottom: 30px;
+}
+
+.search-emty__button {
+    margin-bottom: 0;
+    transform: scale(1.3);  
+}

@@ -1,0 +1,11 @@
+:root {
+    --color-brand: #4F46E5;
+    --color-brand-hover: #4338CA;
+    --color-success: #10B981;
+    --color-bg: #F9FAFB;
+    --color-text: #1F2937;
+    --color-text-light: #6B7280;
+    --color-white: #FFFFFF;
+    --color-line: #E5E7EB;
+    --container-width: 1100px;
+}
