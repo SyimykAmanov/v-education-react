@@ -11,11 +11,12 @@ export default function LessonPage({completedLessons, toggleCompleted}) {
 
     const lessons = data.lessons;
     const lesson = lessons.find(lesson => lesson.id == lessonId && lesson.subjectId == subjectId);
-    const isCompleted = completedLessons.includes(lesson.id);
 
     if (!lesson) {
         return <p>Урок не найден</p>;
     }
+
+    const isCompleted = completedLessons.includes(lesson.id);
     
     return (
         <article className="lesson">
