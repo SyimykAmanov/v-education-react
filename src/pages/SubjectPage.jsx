@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
+import { Link } from "react-router-dom";
 
 
 export default function SubjectPage({subjects, completedLessons}) {
@@ -25,7 +26,7 @@ export default function SubjectPage({subjects, completedLessons}) {
                         <li className="card lesson-preview" key={lesson.id}>
                             <h3 className="card__title">{lesson.title} {completedLessons.includes(lesson.id) ? '✅' : ''}</h3>
                             <p className="card__description">{lesson.description}</p>
-                            <a className="card__link" href={`/subject/${lesson.subjectId}/lesson/${lesson.id}`}>Lektion öffnen</a>
+                            <Link className="card__link" to={`/subject/${lesson.subjectId}/lesson/${lesson.id}`}>Lektion öffnen</Link>
                         </li>
                     )}
                 </ul>

@@ -1,12 +1,14 @@
+import { Link } from "react-router-dom"
+
 export default function Footer() {
     return (
         <footer className="footer">
             <div className="footer__container">
 
                 <div className="footer__brand">
-                    <a href="/" className="logo footer__logo">
+                    <Link to="/" className="logo footer__logo">
                         <img className="logo__img dark-theme" src="/assets/img/logo.png" alt="logo"/>
-                    </a>
+                    </Link>
                     <p className="footer__copy">&copy; 2026 v-education</p>
                 </div>
 

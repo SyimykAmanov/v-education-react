@@ -1,5 +1,6 @@
 import Button from "./Button.jsx";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function SubjectCard({subject, isFav, onFavoriteClick}) {
 
@@ -14,7 +15,7 @@ export default function SubjectCard({subject, isFav, onFavoriteClick}) {
                     onClick={onFavoriteClick}
                     icon={isFav ? '★' : '☆'}
                 />
-                <a href={`/subject/${subject.id}`} className="card__link">Zu den Lektionen</a>
+                <Link to={`/subject/${subject.id}`} className="card__link">Zu den Lektionen</Link>
             </article>
         </li>
     )
