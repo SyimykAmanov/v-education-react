@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
+import Homework from "../components/Homework"
 
 export default function LessonPage({completedLessons, toggleCompleted}) {
     const {subjectId, lessonId} = useParams();
@@ -39,6 +40,7 @@ export default function LessonPage({completedLessons, toggleCompleted}) {
                 <h2 className="lesson__subtitle">Lektionbeschreibung</h2>
                 <p className="lesson__text">{lesson.description}</p>
             </div>
+            <Homework tasks={lesson.homework}/>
         </article>
     )
 }
