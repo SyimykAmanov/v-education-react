@@ -2,16 +2,18 @@ import SubjectCard from "../components/SubjectCard";
 import { useState } from "react";
 import Search from "../components/Search";
 import Categroies from "../components/Categories";
+import { useFetch } from "../hooks/useFetch";
+import Faq from "../components/Faq";
 
 export default function HomePage({subjects, isLoading, favorites, toggleFavorites}) {
     const [searchQuery, setSearchQuery] = useState("");
     const categories = ["Alle", ...new Set(subjects.map(subject => subject.category))];
     const [activeCategory, setActiveCategory] = useState("Alle");
+    const {data: faqData, isLoading: isFaqLoading} = useFetch("http://127.0.0.1:3658/m1/1236529-1233135-default/faq");
 
     const filteredSubjects = subjects
     .filter(s => s.title.toLowerCase().includes(searchQuery.toLowerCase()))
     .filter(s => activeCategory === "Alle" || s.category === activeCategory)
-
 
     return (
         <div className="container">
@@ -45,8 +47,8 @@ export default function HomePage({subjects, isLoading, favorites, toggleFavorite
                                 ))
                             }
                         </ul>}
-
             </section>
+            {isFaqLoading ? <p>wird geladen...</p> : <Faq faqData={faqData}/>}
         </div>
   )
 }
