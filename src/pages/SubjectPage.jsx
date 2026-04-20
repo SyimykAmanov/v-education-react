@@ -1,15 +1,16 @@
 import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 
-export default function SubjectPage({subjects}) {
+
+export default function SubjectPage({subjects, completedLessons}) {
     const {subjectId} = useParams();
     const subject = subjects.find(subject => (subject.id === subjectId));
+
     const {data, isLoading} = useFetch("http://127.0.0.1:3658/m1/1236529-1233135-default/lessons");
 
     if (isLoading) return <p>Wird geladen...</p>
 
     const lessons = data.lessons.filter(lesson => lesson.subjectId === subjectId);
-    
     return (
         <div className="container">
             <section className="hero-sections">
@@ -21,10 +22,16 @@ export default function SubjectPage({subjects}) {
             <h2 className="lessons-preview__title">Lektionsliste</h2>
                 <ul className="lessons-preview__items">
                     {lessons.map(lesson => 
-                        <li key={lesson.id}>{lesson.title}</li>
+                        <li className="card lesson-preview" key={lesson.id}>
+                            <h3 className="card__title">{lesson.title} {completedLessons.includes(lesson.id) ? '✅' : ''}</h3>
+                            <p className="card__description">{lesson.description}</p>
+                            <a className="card__link" href={`/subject/${lesson.subjectId}/lesson/${lesson.id}`}>Lektion öffnen</a>
+                        </li>
                     )}
                 </ul>
             </section>
         </div>
     )
 }
+
+// {completedLessons ? '✅' : ''}
