@@ -4,6 +4,7 @@ import Search from "../components/Search";
 import Categroies from "../components/Categories";
 import { useFetch } from "../hooks/useFetch";
 import Faq from "../components/Faq";
+import Quote from "../components/Quote";
 
 export default function HomePage({subjects, isLoading, favorites, toggleFavorites}) {
     const [searchQuery, setSearchQuery] = useState("");
@@ -21,6 +22,7 @@ export default function HomePage({subjects, isLoading, favorites, toggleFavorite
                 <h1 className="hero__title">Bereite dich effektiv auf die Prüfung vor.</h1>
                 <Categroies categories={categories} activeCategory={activeCategory} onCategoryClick={setActiveCategory}/>
                 <p className="hero__subtitle">Lerne bequem von zu Hause mit Videos – effektiv, einfach und schnell zum Prüfungserfolg.</p>
+                <Quote/>
             </section>
 
             <section className="subjects-preview">
