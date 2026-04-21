@@ -24,7 +24,7 @@ export default function LessonPage({completedLessons, toggleCompleted}) {
             <div className="lesson__header">
             <h1 className="lesson__title">{lesson.order}. {lesson.title}</h1>
             <button className={`button completed-button ${isCompleted ? "active": ""}`} data-id={lesson.id} onClick={() => toggleCompleted(lesson.id)}> 
-                {isCompleted ? "Erldeigt": "als abgeschlossen markieren"}
+                {isCompleted ? "Erledigt": "als abgeschlossen markieren"}
             </button>
             </div>
 

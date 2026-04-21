@@ -34,5 +34,3 @@ export default function SubjectPage({subjects, completedLessons}) {
         </div>
     )
 }
-
-// {completedLessons ? '✅' : ''}

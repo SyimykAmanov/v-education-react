@@ -1,5 +1,4 @@
 import Footer from "./components/Footer.jsx";
-import SubjectCard from "./components/SubjectCard.jsx";
 import { useState } from "react";
 import Header from "./components/Header.jsx";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
@@ -31,16 +30,7 @@ function App() {
     }
 
     const { data, isLoading } = useFetch("http://127.0.0.1:3658/m1/1236529-1233135-default/subjects");
-    
-    if (isLoading) {
-      return <p>Wird geladen ...</p>
-    }
-
-    const subjects = data.subjects;
-
-
-
-    
+    const subjects = isLoading ? [] : data.subjects;
 
   return (
     <BrowserRouter>
