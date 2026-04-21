@@ -5,6 +5,8 @@ import Categroies from "../components/Categories";
 import { useFetch } from "../hooks/useFetch";
 import Faq from "../components/Faq";
 import Quote from "../components/Quote";
+import Skeleton from "../components/Skeleton";
+import Loader from "../components/Loader";
 
 export default function HomePage({subjects, isLoading, favorites, toggleFavorites}) {
     const [searchQuery, setSearchQuery] = useState("");
@@ -28,29 +30,29 @@ export default function HomePage({subjects, isLoading, favorites, toggleFavorite
             <section className="subjects-preview">
                 <h2 className="subjects-preview__title">Alle Lernfächer</h2>
                 <Search searchQuery={searchQuery} onSearch={setSearchQuery}/>
-                {isLoading ? <p>Wird geladen...</p> : 
-                    filteredSubjects.length === 0 && searchQuery  
-                        ? (
-                            <div className="search-emty">
-                                <p className="search-emty__title">Nach der Suche von {searchQuery} wurde nichts gefunden</p>
-                                <button id="resetSearch" className="button search-emty__button" onClick={() => setSearchQuery("")}>Zurücksetzten</button>
-                            </div>
-                        )
-                        : 
-                        <ul className="subjects-preview__list">
-                            {
-                                filteredSubjects.map(subject => (
-                                    <SubjectCard
-                                        key={subject.id}
-                                        subject={subject}
-                                        isFav={favorites.includes(subject.id)}
-                                        onFavoriteClick={() => toggleFavorites(subject.id)}
-                                    />
-                                ))
-                            }
-                        </ul>}
+                {isLoading 
+                ?   <ul className="subjects-preview__list">
+                        <Skeleton count={8} />
+                    </ul>  
+                :   filteredSubjects.length === 0 && searchQuery  
+                ?   (<div className="search-emty">
+                        <p className="search-emty__title">Nach der Suche von {searchQuery} wurde nichts gefunden</p>
+                        <button id="resetSearch" className="button search-emty__button" onClick={() => setSearchQuery("")}>Zurücksetzten</button>
+                    </div>)
+                :   <ul className="subjects-preview__list">
+                        {
+                            filteredSubjects.map(subject => (
+                                <SubjectCard
+                                    key={subject.id}
+                                    subject={subject}
+                                    isFav={favorites.includes(subject.id)}
+                                    onFavoriteClick={() => toggleFavorites(subject.id)}
+                                />
+                            ))
+                        }
+                    </ul>}
             </section>
-            {isFaqLoading ? <p>wird geladen...</p> : <Faq faqData={faqData}/>}
+            {isFaqLoading ? <Loader/> : <Faq faqData={faqData}/>}
         </div>
   )
 }

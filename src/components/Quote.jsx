@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Loader from "./Loader";
 
 export default function Quote() {
     const [quote, setQuote] = useState(null);
@@ -30,7 +31,7 @@ export default function Quote() {
         fetchQuote()
     }, []);
 
-    if (isLoading) return <p>wird geladen</p>;
+    if (isLoading) return <Loader/>;
     if (!quote) return null
 
     return (
