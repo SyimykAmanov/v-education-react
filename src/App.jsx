@@ -29,7 +29,7 @@ function App() {
         localStorage.setItem('v-education_completed', JSON.stringify(newCompletedLessons));
     }
 
-    const { data, isLoading } = useFetch("http://127.0.0.1:3658/m1/1236529-1233135-default/subjects");
+    const { data, isLoading } = useFetch("http://localhost:3000/subjects");
     const subjects = isLoading ? [] : data.subjects;
 
   return (
