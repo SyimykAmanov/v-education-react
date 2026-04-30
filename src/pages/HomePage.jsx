@@ -12,7 +12,7 @@ export default function HomePage({subjects, isLoading, favorites, toggleFavorite
     const [searchQuery, setSearchQuery] = useState("");
     const categories = ["Alle", ...new Set(subjects.map(subject => subject.category))];
     const [activeCategory, setActiveCategory] = useState("Alle");
-    const {data: faqData, isLoading: isFaqLoading} = useFetch("http://127.0.0.1:3658/m1/1236529-1233135-default/faq");
+    const {data: faqData, isLoading: isFaqLoading} = useFetch("http://localhost:3000/faq");
 
     const filteredSubjects = subjects
     .filter(s => s.title.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -52,7 +52,7 @@ export default function HomePage({subjects, isLoading, favorites, toggleFavorite
                         }
                     </ul>}
             </section>
-            {isFaqLoading ? <Loader/> : <Faq faqData={faqData}/>}
+            {isFaqLoading ? <Loader/> : <Faq faqData={faqData.faq}/>}
         </div>
   )
 }
