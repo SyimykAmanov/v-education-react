@@ -37,7 +37,7 @@ function App() {
       <Header favCount={favorites.length} subjects={subjects} isLoading={isLoading}/>
       <Routes>
         <Route path="/" element={<HomePage subjects={subjects} isLoading={isLoading} favorites={favorites} toggleFavorites={toggleFavorites}/>}/>
-        <Route path="/subject/:subjectId" element={<SubjectPage subjects={subjects} completedLessons={completedLessons}/>}/>
+        <Route path="/subject/:subjectId" element={<SubjectPage completedLessons={completedLessons}/>}/>
         <Route path="/subject/:subjectId/lesson/:lessonId" element={<LessonPage completedLessons={completedLessons} toggleCompleted={toggleCompleted}/>}/>
       </Routes>
       <Footer/>
