@@ -4,14 +4,14 @@ import Homework from "../components/Homework"
 
 export default function LessonPage({completedLessons, toggleCompleted}) {
     const {subjectId, lessonId} = useParams();
-    const {data, isLoading} = useFetch("http://127.0.0.1:3658/m1/1236529-1233135-default/lessons");
+    const {data, isLoading} = useFetch("http://localhost:3000/lessons");
 
     if (isLoading) {
         return <p>Wird geladen...</p>
     }
 
     const lessons = data.lessons;
-    const lesson = lessons.find(lesson => lesson.id == lessonId && lesson.subjectId == subjectId);
+    const lesson = lessons.find(lesson => lesson.id == lessonId && lesson.subject_id == subjectId);
 
     if (!lesson) {
         return <p>Урок не найден</p>;

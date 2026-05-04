@@ -10,10 +10,10 @@ export default function SubjectPage({subjects, completedLessons}) {
     const {subjectId} = useParams();
     const subject = subjects.find(subject => (subject.id === subjectId));
 
-    const {data, isLoading} = useFetch("http://127.0.0.1:3658/m1/1236529-1233135-default/lessons");
+    const {data, isLoading} = useFetch("http://localhost:3000/lessons");
 
     if(isLoading) return <Loader/>
-    const lessons = data.lessons.filter(lesson => lesson.subjectId === subjectId);
+    const lessons = data.lessons.filter(lesson => lesson.subject_id === subjectId);
 
     return (
         <div className="container">
@@ -31,7 +31,7 @@ export default function SubjectPage({subjects, completedLessons}) {
                         <li className="card lesson-preview" key={lesson.id}>
                             <h3 className="card__title">{lesson.title} {completedLessons.includes(lesson.id) ? '✅' : ''}</h3>
                             <p className="card__description">{lesson.description}</p>
-                            <Link className="card__link" to={`/subject/${lesson.subjectId}/lesson/${lesson.id}`}>Lektion öffnen</Link>
+                            <Link className="card__link" to={`/subject/${lesson.subject_id}/lesson/${lesson.id}`}>Lektion öffnen</Link>
                         </li>
                     )}
                 </ul>
