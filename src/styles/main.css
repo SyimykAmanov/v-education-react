@@ -19,4 +19,5 @@
 @import url("./blocks/quote.css");
 @import url("./blocks/loader.css");
 @import url("./blocks/subjectSkeleton.css");
-@import url("./blocks/categories.css")
+@import url("./blocks/categories.css");
+@import url("./blocks/errorMessage.css");

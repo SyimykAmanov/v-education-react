@@ -15,6 +15,7 @@
 .skeleton-card {
     pointer-events: none; 
     border-color: #f0f0f0;
+    margin-bottom: 10px;
 }
 
 .skeleton-title {

@@ -29,14 +29,14 @@ function App() {
         localStorage.setItem('v-education_completed', JSON.stringify(newCompletedLessons));
     }
 
-    const { data, isLoading } = useFetch("http://localhost:3000/subjects");
-    const subjects = isLoading ? [] : data.subjects;
+    const { data, isLoading, error: subjectError } = useFetch("http://localhost:3000/subjects");
+    const subjects = (isLoading || subjectError) ? [] : data.subjects;
 
   return (
     <BrowserRouter>
-      <Header favCount={favorites.length} subjects={subjects} isLoading={isLoading}/>
+      <Header favCount={favorites.length} subjects={subjects} isLoading={isLoading} subjectError={subjectError}/>
       <Routes>
-        <Route path="/" element={<HomePage subjects={subjects} isLoading={isLoading} favorites={favorites} toggleFavorites={toggleFavorites}/>}/>
+        <Route path="/" element={<HomePage subjects={subjects} isLoading={isLoading} favorites={favorites} toggleFavorites={toggleFavorites} subjectError={subjectError}/>}/>
         <Route path="/subject/:subjectId" element={<SubjectPage completedLessons={completedLessons}/>}/>
         <Route path="/subject/:subjectId/lesson/:lessonId" element={<LessonPage completedLessons={completedLessons} toggleCompleted={toggleCompleted}/>}/>
       </Routes>

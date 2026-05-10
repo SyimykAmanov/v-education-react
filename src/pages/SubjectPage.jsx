@@ -2,14 +2,17 @@ import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
+import ErrorMessage from "../components/ErrorMessage";
 
 
 export default function SubjectPage({completedLessons}) {
     const {subjectId} = useParams();
 
-    const {data, isLoading} = useFetch(`http://localhost:3000/subjects/${subjectId}`);
+    const {data, isLoading, error: lessonError} = useFetch(`http://localhost:3000/subjects/${subjectId}`);
 
     if(isLoading) return <Loader/>
+    if(lessonError) return <ErrorMessage resourceName="Das Fach wurde"/>
+
     const subject = data.subject;
     const lessons = data.lessons;
 

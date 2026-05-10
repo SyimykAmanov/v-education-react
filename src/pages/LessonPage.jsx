@@ -2,16 +2,18 @@ import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import Homework from "../components/Homework";
 import Loader from "../components/Loader";
+import ErrorMessage from "../components/ErrorMessage";
 
 export default function LessonPage({completedLessons, toggleCompleted}) {
     const {subjectId, lessonId} = useParams();
-    const {data, isLoading} = useFetch(`http://localhost:3000/subjects/${subjectId}/lessons/${lessonId}`);
+    const {data, isLoading, error} = useFetch(`http://localhost:3000/subjects/${subjectId}/lessons/${lessonId}`);
 
     if(isLoading) return <Loader/>
+    if(error) return <ErrorMessage resourceName="Der Unterricht wurde"/>
     
     const lesson = data.lesson;
 
-    if (!lesson) return <p>Урок не найден</p>;
+    if (!lesson) return <p>Es gibt kein Unterricht</p>;
     
     const isCompleted = completedLessons.includes(lesson.id);
     

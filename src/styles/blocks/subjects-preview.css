@@ -18,4 +18,5 @@
 .subjects-preview__item {
     flex: 1 1 calc(25% - 20px);
     min-width: 100px;
+    list-style-type: none
 }

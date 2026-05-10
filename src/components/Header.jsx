@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-export default function Header({favCount, subjects, isLoading}) {
+export default function Header({favCount, subjects, isLoading, subjectError}) {
     return (
         <header className="header">
             <div className="header__container"> 
@@ -16,7 +16,7 @@ export default function Header({favCount, subjects, isLoading}) {
 
 
                 <nav className="header__nav">
-                    {!isLoading && (
+                    {!isLoading && !subjectError && (
                         <ul className="header__menu">
                             {subjects.map(subject => (
                                 <li className="header__menu-item" key={subject.id}>

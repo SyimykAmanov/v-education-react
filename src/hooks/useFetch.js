@@ -10,6 +10,9 @@ export function useFetch(url) {
         async function fetchData() {
             try {
                 const respData = await fetch(url);
+                if (!respData.ok) {
+                    throw new Error(`HTTP ${respData.status}: ${respData.statusText}`)
+                }
                 const result = await respData.json();
                 setData(result)
                 setIsLoading(false)
