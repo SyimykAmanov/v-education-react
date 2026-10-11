@@ -1,3 +1,5 @@
+import ReviewCard from "./ReviewCard"
+
 export default function ReviewList({ reviews }) {
     if (reviews.length == 0) {
         return (

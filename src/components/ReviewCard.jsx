@@ -15,7 +15,7 @@ export default function ReviewCard({review}) {
                 <p>{review.text}</p>
             </div>
             <div className="review-card__time">
-                <p>{formatedTime} {formatedDate}</p>
+                <p>{formattedTime} {formattedDate}</p>
             </div>
         </div>
     )
