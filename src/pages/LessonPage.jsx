@@ -1,12 +1,39 @@
+import {useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import Homework from "../components/Homework";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
+import ReviewList from "../components/ReviewList";
 
 export default function LessonPage({completedLessons, toggleCompleted}) {
     const {subjectId, lessonId} = useParams();
     const {data, isLoading, error} = useFetch(`http://localhost:3000/subjects/${subjectId}/lessons/${lessonId}`);
+    const [reviews, setReviews] = useState([]);
+    const [isLoadingReviews, setIsLoadingReviews] = useState(true);
+    const [errorReviews, setErrorReviews] = useState(null);
+
+    useEffect(() => {
+        setIsLoadingReviews(true);
+        setErrorReviews(null);
+        async function fetchData() {
+            try {
+                const respData = await fetch(`http://localhost:3000/lessons/${lessonId}/reviews`);
+                if (!respData.ok) {
+                    throw new Error(`HTTP ${respData.status}: ${respData.statusText}`)
+                }
+                const result = await respData.json();
+                setReviews(result.reviews)
+            } catch(error) {
+                setErrorReviews(error.message);
+            }
+            finally {
+                setIsLoadingReviews(false);
+            }
+        };
+
+        fetchData();
+    }, [lessonId]);
 
     if(isLoading) return <Loader/>
     if(error) return <ErrorMessage resourceName="Der Unterricht wurde"/>
@@ -38,7 +65,10 @@ export default function LessonPage({completedLessons, toggleCompleted}) {
                 <h2 className="lesson__subtitle">Lektionbeschreibung</h2>
                 <p className="lesson__text">{lesson.description}</p>
             </div>
+
             <Homework tasks={lesson.homework}/>
+            
+            {isLoadingReviews ? <Loader/> : errorReviews ? <ErrorMessage resourceName="Bewertungen" toHomePage={false}/> : <ReviewList reviews={reviews}/>}
         </article>
     )
 }
