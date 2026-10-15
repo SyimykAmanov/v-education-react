@@ -13,24 +13,25 @@ export default function LessonPage({completedLessons, toggleCompleted}) {
     const [isLoadingReviews, setIsLoadingReviews] = useState(true);
     const [errorReviews, setErrorReviews] = useState(null);
 
+    async function fetchData() {
+        try {
+            const respData = await fetch(`http://localhost:3000/lessons/${lessonId}/reviews`);
+            if (!respData.ok) {
+                throw new Error(`HTTP ${respData.status}: ${respData.statusText}`)
+            }
+            const result = await respData.json();
+            setReviews(result.reviews)
+        } catch(error) {
+            setErrorReviews(error.message);
+        }
+        finally {
+            setIsLoadingReviews(false);
+        }
+    };
+
     useEffect(() => {
         setIsLoadingReviews(true);
         setErrorReviews(null);
-        async function fetchData() {
-            try {
-                const respData = await fetch(`http://localhost:3000/lessons/${lessonId}/reviews`);
-                if (!respData.ok) {
-                    throw new Error(`HTTP ${respData.status}: ${respData.statusText}`)
-                }
-                const result = await respData.json();
-                setReviews(result.reviews)
-            } catch(error) {
-                setErrorReviews(error.message);
-            }
-            finally {
-                setIsLoadingReviews(false);
-            }
-        };
 
         fetchData();
     }, [lessonId]);
