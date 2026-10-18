@@ -5,6 +5,7 @@ import Homework from "../components/Homework";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import ReviewList from "../components/ReviewList";
+import ReviewForm from "../components/ReviewForm";
 
 export default function LessonPage({completedLessons, toggleCompleted}) {
     const {subjectId, lessonId} = useParams();
@@ -69,6 +70,8 @@ export default function LessonPage({completedLessons, toggleCompleted}) {
 
             <Homework tasks={lesson.homework}/>
             
+            <ReviewForm lessonId={lessonId} onSuccess={() => fetchData()} />
+
             {isLoadingReviews ? <Loader/> : errorReviews ? <ErrorMessage resourceName="Bewertungen" toHomePage={false}/> : <ReviewList reviews={reviews}/>}
         </article>
     )
