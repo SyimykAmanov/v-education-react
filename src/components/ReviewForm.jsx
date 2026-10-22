@@ -5,19 +5,23 @@ const ratingNumbers = [1, 2, 3, 4, 5];
 export default function ReviewForm({lessonId, onSuccess}) {
     const [review, setReview] = useState({author_name: "", text: "", rating: null});
     const [errorReviewForm, setErrorReviewForm] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     async function handleSubmit(event) {
         event.preventDefault();
+        setIsSubmitting(true);
         setErrorReviewForm(null);
         try {
-            const respData = await fetch(`http://localhost:3000/lessons/${lessonId}/reviews`, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(review)});
-            if (!respData.ok) {
-                throw new Error(`HTTP ${respData.status}: ${respData.statusText}`)
+            const response = await fetch(`http://localhost:3000/lessons/${lessonId}/reviews`, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(review)});
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`)
             }
             onSuccess();
             setReview({author_name: "", text: "", rating: null})
         } catch(error) {
             setErrorReviewForm(error.message)
+        } finally {
+            setIsSubmitting(false);
         }
     }
 
@@ -86,7 +90,7 @@ export default function ReviewForm({lessonId, onSuccess}) {
 
                             {errorReviewForm && <span className="review-form__error">Etwas ist schiefgelaufen, versuchen Sie es nochmal!</span>}
                             
-                            <button className="review-form__submit-button" type="submit">
+                            <button className="review-form__submit-button" type="submit" disabled={isSubmitting}>
                                 Senden
                             </button>
             </form>
