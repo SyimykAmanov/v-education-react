@@ -147,3 +147,16 @@
 .review-form__submit-button[disabled]:hover {
   background-color: var(--color-bg);
 }
+
+.review-form__error {
+  display: block;
+  margin-top: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-error-text);
+  background-color: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  border-radius: 6px;
+  line-height: 1.4;
+}

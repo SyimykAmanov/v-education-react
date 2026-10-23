@@ -88,7 +88,7 @@ export default function ReviewForm({lessonId, onSuccess}) {
                                 </div>
                             </div>
 
-                            {errorReviewForm && <span className="review-form__error">Etwas ist schiefgelaufen, versuchen Sie es nochmal!</span>}
+                            {errorReviewForm && <span className="review-form__error">Etwas ist schiefgelaufen, versuchen Sie es noch einmal!</span>}
                             
                             <button className="review-form__submit-button" type="submit" disabled={isSubmitting}>
                                 Senden
