@@ -9,12 +9,21 @@ export default function ReviewForm({lessonId, onSuccess}) {
 
     async function handleSubmit(event) {
         event.preventDefault();
+
+        if (typeof review.author_name !== "string" || review.author_name.trim() === "" || review.author_name.length > 100) {
+            return setErrorReviewForm((new Error("Der Name darf nicht leer sein und nicht mehr als 100 Zeichen lang sein.").message))
+        }
+
+        if (typeof review.rating !== "number" || review.rating > 5 || review.rating < 1) {
+            return setErrorReviewForm((new Error("Es muss eine Bewertung von 1 bis 5 gewählt werden.").message));
+        }
+
         setIsSubmitting(true);
         setErrorReviewForm(null);
         try {
             const response = await fetch(`http://localhost:3000/lessons/${lessonId}/reviews`, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(review)});
             if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+                throw new Error(`Etwas ist schiefgelaufen: HTTP ${response.status}: ${response.statusText}`)
             }
             onSuccess();
             setReview({author_name: "", text: "", rating: null})
@@ -88,11 +97,9 @@ export default function ReviewForm({lessonId, onSuccess}) {
                                 </div>
                             </div>
 
-                            {errorReviewForm && <span className="review-form__error">Etwas ist schiefgelaufen, versuchen Sie es noch einmal!</span>}
+                            {errorReviewForm && <span className="review-form__error">{errorReviewForm}</span>}
                             
-                            <button className="review-form__submit-button" type="submit" disabled={isSubmitting}>
-                                Senden
-                            </button>
+                            <button className="review-form__submit-button" type="submit" disabled={isSubmitting}>Senden</button>
             </form>
     )
 }
