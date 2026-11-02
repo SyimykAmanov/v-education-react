@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-const ratingNumbers = [1, 2, 3, 4, 5];
+const RATING_NUMBERS = [1, 2, 3, 4, 5];
+const INITIAL_REVIEW = {author_name: "", text: "", rating: null};
 
 export default function ReviewForm({lessonId, onSuccess}) {
-    const [review, setReview] = useState({author_name: "", text: "", rating: null});
+    const [review, setReview] = useState(INITIAL_REVIEW);
     const [errorReviewForm, setErrorReviewForm] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -26,7 +27,7 @@ export default function ReviewForm({lessonId, onSuccess}) {
                 throw new Error(`Etwas ist schiefgelaufen: HTTP ${response.status}: ${response.statusText}`)
             }
             onSuccess();
-            setReview({author_name: "", text: "", rating: null})
+            setReview(INITIAL_REVIEW);
         } catch(error) {
             setErrorReviewForm(error.message)
         } finally {
@@ -70,7 +71,7 @@ export default function ReviewForm({lessonId, onSuccess}) {
                             <div className="review-form__field">
                                 <span className="review-form__label">Bewertung</span>
                                 <div className="review-form__rating-list">
-                                {ratingNumbers.map((ratingNumber) => {
+                                {RATING_NUMBERS.map((ratingNumber) => {
                                     const isSelected = review.rating === ratingNumber;
 
                                     return (
